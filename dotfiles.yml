@@ -4,7 +4,14 @@
     - path_bashrc: "~/.bashrc"
     - ssh_config_path: "~/.ssh/config.d"
     - path_ssh_conf: "~/.ssh/"
+    - path_private_local: "~/.config/private_local"
+
   tasks:
+    - name: "Create private_local"
+      file:
+        path: "{{ path_private_local }}"
+        state: directory
+
     - name: "Install bashrc"
       file:
         path: "{{ path_bashrc }}"

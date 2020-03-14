@@ -7,10 +7,8 @@ fi
 
 # User specific environment
 PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+
 export PATH
 
-# Uncomment the following line if you don't like systemctl's auto-paging feature:
-# export SYSTEMD_PAGER=
-
 # User specific aliases and functions
-source $HOME/.config/bashlocal
+source $HOME/.config/private_local/*
