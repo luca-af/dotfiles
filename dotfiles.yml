@@ -1,0 +1,24 @@
+---
+- hosts: localhost
+  vars:
+    - path_bashrc: "~/.bashrc"
+    - ssh_config_path: "~/.ssh/config.d"
+    - path_ssh_conf: "~/.ssh/"
+  tasks:
+    - name: "Install bashrc"
+      file:
+        path: "{{ path_bashrc }}"
+        src: "{{ playbook_dir }}/bashrc"
+        state: link
+
+    - name: "Create config.d"
+      file:
+        path: "{{ ssh_config_path }}"
+        state: directory
+
+    - name: "Install ssh config"
+      file:
+        path: "{{ path_ssh_conf }}/config"
+        src: "{{ playbook_dir }}/ssh_config"
+        state: link
+        mode: '600'
