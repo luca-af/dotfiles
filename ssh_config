@@ -1,5 +1,6 @@
 
 Include config.d/*
+PubkeyAcceptedKeyTypes +ssh-rsa
 
 Host *
     IdentitiesOnly yes
