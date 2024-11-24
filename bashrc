@@ -29,6 +29,8 @@ alias kc="kubectl"
 export PS1='\[\e[32m\]me\[\e[m\] \[\e[1;93m\]\w\[\e[m\] [$name]
 \[\e[1;37m\]$CNTX\[\e[m\] '
 
+source /etc/profile.d/*.sh
+
 # User specific aliases and functions
 for F in $HOME/.config/private_local/bash*
   do source $F
