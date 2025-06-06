@@ -1,10 +1,10 @@
 ---
 - hosts: localhost
   vars:
-    - path_bashrc: "~/.bashrc"
-    - ssh_config_path: "~/.ssh/config.d"
-    - path_ssh_conf: "~/.ssh/"
-    - path_private_local: "~/.config/private_local"
+    path_bashrc: "~/.bashrc"
+    ssh_config_path: "~/.ssh/config.d"
+    path_ssh_conf: "~/.ssh/"
+    path_private_local: "~/.config/private_local"
 
   tasks:
     - name: "Create private_local"
@@ -29,3 +29,23 @@
         src: "{{ playbook_dir }}/ssh_config"
         state: link
         mode: '600'
+
+    - name: "Install ncspot"
+      flatpak:
+        name: io.github.hrkfdn.ncspot
+        state: latest
+        remote: flathub
+      tags:
+        - never
+        - application
+        - ncspot
+      notify:
+        - Conf ncspot
+
+  handlers:
+    - name: Conf ncspot
+      copy:
+        dest: "~/.var/app/io.github.hrkfdn.ncspot/config/ncspot/config.toml"
+        src: "{{ playbook_dir }}/appconf/ncspot/config.toml"
+        remote_src: true
+        force: true
