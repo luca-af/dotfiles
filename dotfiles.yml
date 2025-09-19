@@ -71,7 +71,6 @@
           tags:
             - charm
 
-
         - name: "Install apps from repo"
           become: true
           ansible.builtin.dnf:
@@ -79,6 +78,7 @@
               - glow
               - toot
               - bat
+              - pandoc
             state: present
           notify:
             - Glow conf
