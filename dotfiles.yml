@@ -77,6 +77,8 @@
           ansible.builtin.dnf:
             name:
               - glow
+              - toot
+              - bat
             state: present
           notify:
             - Glow conf
