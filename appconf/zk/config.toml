@@ -50,7 +50,7 @@ filename = "{{format-date now}}"
 # MARKDOWN SETTINGS
 [format.markdown]
 # Enable support for #hashtags
-hashtags = true
+hashtags = false
 # Enable support for :colon:separated:tags:
 colon-tags = true
 
@@ -85,6 +85,20 @@ recent = "zk edit --sort created- --created-after 'last two weeks' --interactive
 
 # Show a random note.
 lucky = "zk list --quiet --format full --sort random --limit 1"
+
+# Read markdown using glow
+read = "glow $ZK_NOTEBOOK_DIR"
+
+# Go to notebook directory, WIP
+# dir = "cd $ZK_NOTEBOOK_DIR"
+
+# Commit current edits
+save = 'git add . && git commit -m "$*" && git push'
+safe_save = 'git add . && git commit -m "$*" && git push'
+save_offline = 'git add . && git commit -m "$*"'
+
+# New with title
+nt = 'zk new --title "$*"'
 
 # LSP (EDITOR INTEGRATION)
 [lsp]
