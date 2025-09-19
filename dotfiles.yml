@@ -1,51 +1,106 @@
 ---
-- hosts: localhost
+- name: Configure dotfiles
+  hosts: localhost
   vars:
     path_bashrc: "~/.bashrc"
     ssh_config_path: "~/.ssh/config.d"
     path_ssh_conf: "~/.ssh/"
     path_private_local: "~/.config/private_local"
-
+    ncspot_dir: "~/.var/app/io.github.hrkfdn.ncspot/config/ncspot/"
+    zk_version: "v0.15.1"
   tasks:
     - name: "Create private_local"
-      file:
+      ansible.builtin.file:
         path: "{{ path_private_local }}"
         state: directory
 
     - name: "Install bashrc"
-      file:
+      ansible.builtin.file:
         path: "{{ path_bashrc }}"
         src: "{{ playbook_dir }}/bashrc"
         state: link
 
     - name: "Create config.d"
-      file:
+      ansible.builtin.file:
         path: "{{ ssh_config_path }}"
         state: directory
 
     - name: "Install ssh config"
-      file:
+      ansible.builtin.file:
         path: "{{ path_ssh_conf }}/config"
         src: "{{ playbook_dir }}/ssh_config"
         state: link
         mode: '600'
 
-    - name: "Install ncspot"
-      flatpak:
-        name: io.github.hrkfdn.ncspot
-        state: latest
-        remote: flathub
+    - name: "Configure Applications"
       tags:
         - never
         - application
-        - ncspot
-      notify:
-        - Conf ncspot
+      block:
+        - name: "Install from flatpak"
+          community.general.flatpak:
+            name:
+              - io.github.hrkfdn.ncspot
+            state: latest
+            remote: flathub
+          notify:
+            - Ncspot dir
+            - Ncspot conf
 
+        - name: "Install zk"
+          ansible.builtin.unarchive:
+            src: https://github.com/zk-org/zk/releases/download/{{ zk_version }}/zk-{{ zk_version }}-linux-amd64.tar.gz
+            dest: "~/.opt/bin/"
+            include: "zk"
+            remote_src: true
+            list_files: true
+          tags:
+            - zk
+          notify:
+            - Zk conf
+
+
+        - name: "Add charm repository"
+          become: true
+          ansible.builtin.yum_repository:
+            name: charm
+            file: charm
+            description: "Charm repository"
+            baseurl: "https://repo.charm.sh/yum/"
+            gpgkey: "https://repo.charm.sh/yum/gpg.key"
+          tags:
+            - charm
+
+
+        - name: "Install apps from repo"
+          become: true
+          ansible.builtin.dnf:
+            name:
+              - glow
+            state: present
+          notify:
+            - Glow conf
   handlers:
-    - name: Conf ncspot
-      copy:
-        dest: "~/.var/app/io.github.hrkfdn.ncspot/config/ncspot/config.toml"
+    - name: Ncspot dir
+      ansible.builtin.file:
+        path: "{{ ncspot_dir }}"
+        state: directory
+
+    - name: Ncspot conf
+      ansible.builtin.copy:
+        dest: "{{ ncspot_dir }}/config.toml"
         src: "{{ playbook_dir }}/appconf/ncspot/config.toml"
-        remote_src: true
+        remote_src: false
         force: true
+
+    - name: Glow conf
+      ansible.builtin.file:
+        path: "~/.config/glow"
+        src: "{{ playbook_dir }}/appconf/glow"
+        state: link
+
+    - name: Zk conf
+      ansible.builtin.file:
+        path: "~/.config/zk"
+        src: "{{ playbook_dir }}/appconf/zk"
+        state: link
