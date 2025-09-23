@@ -97,6 +97,9 @@ save = 'git add . && git commit -m "$*" && git push'
 safe_save = 'git add . && git commit -m "$*" && git push'
 save_offline = 'git add . && git commit -m "$*"'
 
+# Sync notes
+sync = 'git pull'
+
 # New with title
 nt = 'zk new --title "$*"'
 
