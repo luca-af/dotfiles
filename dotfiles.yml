@@ -59,6 +59,64 @@
           notify:
             - Zk conf
 
+        - name: Setup ptyxis basic profile
+          tags:
+            - ptyxis
+          vars:
+            settings:
+              bold-is-bright: false
+              label: "'Basic'"
+              palette: "'dracula'"
+              preserve-directory: "'safe'"
+          loop: "{{ settings | dict2items }}"
+          community.general.dconf:
+            key:  "/org/gnome/Ptyxis/Profiles/ffca20fa64c8cc4cae7d0dbc672d3cc9/{{ item.key }}"
+            value: "{{ item.value }}"
+
+        - name: Setup ptyxis presentation profile
+          tags:
+            - ptyxis
+          vars:
+            settings:
+              bold-is-bright: true
+              label: "'Presentation'"
+              palette: "'Bluloco Light'"
+              preserve-directory: "'safe'"
+              scrollback-lines: 100
+              use-proxy: false
+          loop: "{{ settings | dict2items }}"
+          community.general.dconf:
+            key:  "/org/gnome/Ptyxis/Profiles/ecea637766b3bd8cb0df50f568430996/{{ item.key }}"
+            value: "{{ item.value }}"
+
+        - name: Setup ptyxis presentation profile
+          tags:
+            - ptyxis
+          vars:
+            settings:
+              default-profile-uuid: "'ffca20fa64c8cc4cae7d0dbc672d3cc9'"
+              enable-a11y: false
+              interface-style: "'system'"
+              new-tab-position: "'last'"
+              profile-uuids: "['ffca20fa64c8cc4cae7d0dbc672d3cc9', 'ecea637766b3bd8cb0df50f568430996']"
+              restore-session: false
+              restore-window-size: true
+              use-system-font: true
+          loop: "{{ settings | dict2items }}"
+          community.general.dconf:
+            key:  "/org/gnome/Ptyxis/{{ item.key }}"
+            value: "{{ item.value }}"
+
+        
+        - name: Setup ptyxis Custom Shortcuts
+          tags:
+            - ptyxis
+          loop:
+            - key: "set-title"
+              value: "'<Control><Alt>t'"
+          community.general.dconf:
+            key:  "/org/gnome/Ptyxis/Shortcuts/{{ item.key }}"
+            value: "{{ item.value }}"
 
         - name: "Add charm repository"
           become: true
