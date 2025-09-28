@@ -138,7 +138,6 @@
               - toot
               - bat
               - pandoc
-              - gnome-shell-extension-argos
             state: present
           notify:
             - App conf
@@ -161,8 +160,6 @@
           src: "{{ path_app_conf}}/glow"
         - path: "~/.config/zk"
           src:  "{{ path_app_conf}}/zk"
-        - path: "~/.config/argos"
-          src: "{{ path_app_conf}}/argos"
       ansible.builtin.file:
         path: "{{ item.path }}"
         src:  "{{ item.src }}"
