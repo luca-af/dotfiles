@@ -2,6 +2,7 @@
 - name: Configure dotfiles
   hosts: localhost
   vars:
+    path_app_conf: "{{ playbook_dir }}/appconf"
     path_bashrc: "~/.bashrc"
     ssh_config_path: "~/.ssh/config.d"
     path_ssh_conf: "~/.ssh/"
@@ -57,7 +58,7 @@
           tags:
             - zk
           notify:
-            - Zk conf
+            - App conf
 
         - name: Setup ptyxis basic profile
           tags:
@@ -137,9 +138,10 @@
               - toot
               - bat
               - pandoc
+              - gnome-shell-extension-argos
             state: present
           notify:
-            - Glow conf
+            - App conf
   handlers:
     - name: Ncspot dir
       ansible.builtin.file:
@@ -153,14 +155,15 @@
         remote_src: false
         force: true
 
-    - name: Glow conf
+    - name: App conf
+      loop:
+        - path: "~/.config/glow"
+          src: "{{ path_app_conf}}/glow"
+        - path: "~/.config/zk"
+          src:  "{{ path_app_conf}}/zk"
+        - path: "~/.config/argos"
+          src: "{{ path_app_conf}}/argos"
       ansible.builtin.file:
-        path: "~/.config/glow"
-        src: "{{ playbook_dir }}/appconf/glow"
-        state: link
-
-    - name: Zk conf
-      ansible.builtin.file:
-        path: "~/.config/zk"
-        src: "{{ playbook_dir }}/appconf/zk"
+        path: "{{ item.path }}"
+        src:  "{{ item.src }}"
         state: link
