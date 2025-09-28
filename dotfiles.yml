@@ -138,9 +138,22 @@
               - toot
               - bat
               - pandoc
+              - uv
+              - syncthing
             state: present
           notify:
             - App conf
+
+        - name: Install uv tools
+          tags:
+            - python
+          loop:
+            - papis
+            - papis-scihub
+            - meshtastic
+          ansible.builtin.command: >
+            uv tool install {{ item }}
+            
   handlers:
     - name: Ncspot dir
       ansible.builtin.file:
