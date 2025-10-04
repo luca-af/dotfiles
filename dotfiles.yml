@@ -42,11 +42,13 @@
           community.general.flatpak:
             name:
               - io.github.hrkfdn.ncspot
+              - io.gitlab.librewolf-community
             state: latest
             remote: flathub
           notify:
             - Ncspot dir
             - Ncspot conf
+            - Newsboat conf
 
         - name: "Install zk"
           ansible.builtin.unarchive:
@@ -140,6 +142,7 @@
               - pandoc
               - uv
               - syncthing
+              - newsboat
             state: present
           notify:
             - App conf
@@ -173,6 +176,8 @@
           src: "{{ path_app_conf}}/glow"
         - path: "~/.config/zk"
           src:  "{{ path_app_conf}}/zk"
+        - path: "~/.newsboat/config"
+          src: "{{ pat_app_conf }}/newsboat/config"
       ansible.builtin.file:
         path: "{{ item.path }}"
         src:  "{{ item.src }}"

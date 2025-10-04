@@ -1,0 +1,12 @@
+include /usr/share/doc/newsboat/contrib/colorschemes/kinda-maia
+auto-reload yes
+reload-threads 20
+refresh-on-startup yes
+notify-program "notify-send"
+notify-format "newsbeuter: %n unread articles within %f unread feeds"
+download-full-page yes
+history-limit 0
+browser  "flatpak run io.gitlab.librewolf-community --private-window %u > /dev/null 2>&1 &"
+highlight feedlist "---.*---" green default bold
+highlight feedlist ".*0/0.." default default invis
+macro y set browser "mpv %u > /dev/null 2>&1 &" ; open-in-browser; set browser "flatpak run io.gitlab.librewolf-community --private-window %u & > /dev/null 2>&1"
