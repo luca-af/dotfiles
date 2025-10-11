@@ -10,3 +10,4 @@ browser  "flatpak run io.gitlab.librewolf-community --private-window %u > /dev/n
 highlight feedlist "---.*---" green default bold
 highlight feedlist ".*0/0.." default default invis
 macro y set browser "mpv %u > /dev/null 2>&1 &" ; open-in-browser; set browser "flatpak run io.gitlab.librewolf-community --private-window %u & > /dev/null 2>&1"
+max-items 50
