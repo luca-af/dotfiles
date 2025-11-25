@@ -48,7 +48,6 @@
           notify:
             - Ncspot dir
             - Ncspot conf
-            - Newsboat conf
 
         - name: "Install zk"
           ansible.builtin.unarchive:
@@ -132,6 +131,12 @@
           tags:
             - charm
 
+        - name: Enable Copr repo
+          become: true
+          community.general.copr:
+            name: karmab/kcli
+            state: enabled
+          
         - name: "Install apps from repo"
           become: true
           ansible.builtin.dnf:
@@ -143,6 +148,7 @@
               - uv
               - syncthing
               - newsboat
+              - kcli
             state: present
           notify:
             - App conf
