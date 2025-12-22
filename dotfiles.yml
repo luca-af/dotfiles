@@ -42,6 +42,9 @@
             name:
               - io.github.hrkfdn.ncspot
               - io.gitlab.librewolf-community
+              - net.cozic.joplin_desktop
+              - io.freetubeapp.FreeTube
+              
             state: latest
             remote: flathub
           notify:
