@@ -8,7 +8,6 @@
     path_ssh_conf: "~/.ssh/"
     path_private_local: "~/.config/private_local"
     ncspot_dir: "~/.var/app/io.github.hrkfdn.ncspot/config/ncspot/"
-    zk_version: "v0.15.1"
   tasks:
     - name: "Create private_local"
       ansible.builtin.file:
@@ -48,18 +47,6 @@
           notify:
             - Ncspot dir
             - Ncspot conf
-
-        - name: "Install zk"
-          ansible.builtin.unarchive:
-            src: https://github.com/zk-org/zk/releases/download/{{ zk_version }}/zk-{{ zk_version }}-linux-amd64.tar.gz
-            dest: "~/.opt/bin/"
-            include: "zk"
-            remote_src: true
-            list_files: true
-          tags:
-            - zk
-          notify:
-            - App conf
 
         - name: Setup ptyxis basic profile
           tags:
@@ -180,8 +167,6 @@
       loop:
         - path: "~/.config/glow"
           src: "{{ path_app_conf}}/glow"
-        - path: "~/.config/zk"
-          src:  "{{ path_app_conf}}/zk"
         - path: "~/.newsboat/config"
           src: "{{ pat_app_conf }}/newsboat/config"
       ansible.builtin.file:
