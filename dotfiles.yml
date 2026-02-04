@@ -123,9 +123,32 @@
 
         - name: Enable Copr repo
           become: true
+          tags:
+            - kcli
           community.general.copr:
             name: karmab/kcli
             state: enabled
+
+        
+        - name: "Install kcli"
+          become: true
+          tags:
+            - kcli
+          ansible.builtin.dnf:
+            name:
+              - kcli
+            state: present
+
+        - name: "Install base apps"
+          become: true
+          tags:
+            - base_apps
+          ansible.builtin.dnf:
+            name:
+              - bat
+              - pandoc
+              - uv
+            state: present
           
         - name: "Install apps from repo"
           become: true
