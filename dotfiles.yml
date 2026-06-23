@@ -32,6 +32,17 @@
         state: link
         mode: '600'
 
+    - name: "Gnome Custom Keybinding"
+      vars:
+        keyb:
+          begin-move: "['<Super>w']"
+          begin-resize: "['<Super>r']"
+          panel-run-dialog: "['<Super>d']"
+      loop: "{{ keyb | dict2items }}"
+      community.general.dconf:
+        key: "/org/gnome/desktop/wm/keybindings/{{ item.key }}"
+        value: "{{ item.value }}"
+        
     - name: "Configure Applications"
       tags:
         - never
@@ -128,7 +139,6 @@
           community.general.copr:
             name: karmab/kcli
             state: enabled
-
         
         - name: "Install kcli"
           become: true
