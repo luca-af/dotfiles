@@ -25,6 +25,8 @@ alias ls='ls --color=auto'
 alias ll='ls -l --color=auto'
 alias kc="kubectl"
 alias ncspot='flatpak run io.github.hrkfdn.ncspot'
+alias cat=bat
+alias grep=rg
 # Customize PS1
 export PS1='\[\e[32m\]me\[\e[m\] \[\e[1;93m\]\w\[\e[m\] [$name]
 \[\e[1;37m\]$CNTX\[\e[m\] '
