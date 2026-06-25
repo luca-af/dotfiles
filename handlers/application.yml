@@ -1,0 +1,12 @@
+---
+- name: Ncspot dir
+  ansible.builtin.file:
+    path: "{{ ncspot_dir }}"
+    state: directory
+
+- name: Ncspot conf
+  ansible.builtin.copy:
+    dest: "{{ ncspot_dir }}/config.toml"
+    src: "{{ playbook_dir }}/appconf/ncspot/config.toml"
+    remote_src: false
+    force: true

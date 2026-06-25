@@ -1,0 +1,8 @@
+---
+
+- name: "Install ssh config"
+  ansible.builtin.file:
+    path: "{{ path_ssh_conf }}/config"
+    src: "{{ playbook_dir }}/ssh_config"
+    state: link
+    mode: '600'

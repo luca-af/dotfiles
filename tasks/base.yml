@@ -1,0 +1,29 @@
+---
+- name: "Create private_local"
+  ansible.builtin.file:
+     path: "{{ path_private_local }}"
+     state: directory
+
+- name: "Install bashrc"
+  ansible.builtin.file:
+     path: "{{ path_bashrc }}"
+     src: "{{ playbook_dir }}/bashrc"
+     state: link
+
+- name: "Create config.d"
+  ansible.builtin.file:
+     path: "{{ ssh_config_path }}"
+     state: directory
+
+- name: "Install base program"
+  become: true
+  tags:
+    - never
+    - install
+  ansible.builtin.dnf:
+    name:
+      - bat
+      - pandoc
+      - uv
+      - ripgrep
+    state: present

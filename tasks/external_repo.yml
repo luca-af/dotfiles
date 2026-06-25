@@ -1,0 +1,28 @@
+---
+- name: "Add charm repository"
+  become: true
+  ansible.builtin.yum_repository:
+    name: charm
+    file: charm
+    description: "Charm repository"
+    baseurl: "https://repo.charm.sh/yum/"
+    gpgkey: "https://repo.charm.sh/yum/gpg.key"
+  tags:
+    - charm
+
+- name: Enable Copr repo
+  become: true
+  tags:
+    - kcli
+  community.general.copr:
+    name: karmab/kcli
+    state: enabled
+
+- name: "Install kcli"
+  become: true
+  tags:
+    - kcli
+  ansible.builtin.dnf:
+    name:
+      - kcli
+    state: present

@@ -1,0 +1,21 @@
+---
+- name: "Gnome Windows Custom Keybinding"
+  vars:
+    keyb:
+      begin-move: "['<Super>w']"
+      begin-resize: "['<Super>r']"
+      panel-run-dialog: "['<Super>d']"
+      mic-mute: "['<Super>AudioMute']"
+  loop: "{{ keyb | dict2items }}"
+  community.general.dconf:
+    key: "/org/gnome/desktop/wm/keybindings/{{ item.key }}"
+    value: "{{ item.value }}"
+
+- name: "Gnome Media Keys Custom Keybinding"
+  vars:
+    keyb:
+      mic-mute: "['<Super>AudioMute']"
+  loop: "{{ keyb | dict2items }}"
+  community.general.dconf:
+    key: "/org/gnome/desktop/settings-daemon/plugins/media-keys/{{ item.key }}"
+    value: "{{ item.value }}"
