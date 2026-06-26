@@ -1,15 +1,48 @@
 ---
 
-        - name: "Install Ncspot"
-          community.general.flatpak:
-            name:
-              - io.github.hrkfdn.ncspot
-              - io.gitlab.librewolf-community
-              - net.cozic.joplin_desktop
-              - io.freetubeapp.FreeTube
-            state: latest
-            remote: flathub
-          notify:
-            - Ncspot dir
-            - Ncspot conf
+- name: "Install Ncspot"
+  tags:
+    - flatpak
+    - ncspot
+  community.general.flatpak:
+    name:
+      - io.github.hrkfdn.ncspot
+      - io.gitlab.librewolf-community
+      - net.cozic.joplin_desktop
+      - io.freetubeapp.FreeTube
+    state: latest
+    remote: flathub
+  notify:
+    - Ncspot dir
+    - Ncspot conf
 
+
+- name: "Install FreeTube"
+  tags:
+    - flatpak
+    - FreeTube
+  community.general.flatpak:
+    name:
+     - io.freetubeapp.FreeTube
+    state: latest
+    remote: flathub
+
+- name: "Install Joplin"
+  tags:
+    - flatpak
+    - joplin
+  community.general.flatpak:
+    name:
+      - net.cozic.joplin_desktop
+    state: latest
+    remote: flathub
+
+- name: "Install Librewolf"
+  tags:
+    - flatpak
+    - librewolf
+  community.general.flatpak:
+    name:
+      - io.gitlab.librewolf-community
+    state: latest
+    remote: flathub
