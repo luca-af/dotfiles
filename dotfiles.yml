@@ -34,14 +34,14 @@
         - never
       ansible.builtin.import_tasks: ./tasks/external_repo.yml
 
-    - name: "Application configuration"
+    - name: "Install sw from flatpak"
       tags:
         - never
-      ansible.builtin.import_tasks: ./tasks/application.yml
+      ansible.builtin.import_tasks: ./tasks/flatpak.yml
 
   handlers:
-    - name: "Handlers for task application"
-      ansible.builtin.import_tasks: ./handlers/application.yml
+    - name: "Handlers for flatpak tasks"
+      ansible.builtin.import_tasks: ./handlers/flatpak.yml
 
     - name: App conf
       loop:
