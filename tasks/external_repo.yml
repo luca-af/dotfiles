@@ -26,3 +26,16 @@
     name:
       - kcli
     state: present
+
+- name: "Install charm software"
+  become: true
+  tags:
+    - charm
+  ansible.builtin.dnf:
+    name:
+      - crush
+      - glow
+      - gum
+    state: present
+  notify:
+    - App conf
