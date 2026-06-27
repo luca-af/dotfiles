@@ -12,9 +12,24 @@
       - io.freetubeapp.FreeTube
     state: latest
     remote: flathub
-  notify:
-    - Ncspot dir
-    - Ncspot conf
+
+- name: Ncspot dir
+  tags:
+    - ncspot
+    - flatpak
+  ansible.builtin.file:
+    path: "{{ ncspot_dir }}"
+    state: directory
+
+- name: Ncspot conf
+  tags:
+    - ncspot
+    - flatpak
+  ansible.builtin.copy:
+    dest: "{{ ncspot_dir }}/config.toml"
+    src: "{{ playbook_dir }}/appconf/ncspot/config.toml"
+    remote_src: false
+    force: true
 
 
 - name: "Install FreeTube"
@@ -23,7 +38,7 @@
     - FreeTube
   community.general.flatpak:
     name:
-     - io.freetubeapp.FreeTube
+      - io.freetubeapp.FreeTube
     state: latest
     remote: flathub
 

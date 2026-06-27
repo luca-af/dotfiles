@@ -40,9 +40,6 @@
       ansible.builtin.import_tasks: ./tasks/flatpak.yml
 
   handlers:
-    - name: "Handlers for flatpak tasks"
-      ansible.builtin.import_tasks: ./handlers/flatpak.yml
-
     - name: App conf
       loop:
         - path: "~/.config/glow"
