@@ -6,6 +6,7 @@
       begin-resize: "['<Super>r']"
       panel-run-dialog: "['<Super>d']"
       mic-mute: "['<Super>AudioMute']"
+      toggle-fullscreen: "['<Super>f']"
   loop: "{{ keyb | dict2items }}"
   community.general.dconf:
     key: "/org/gnome/desktop/wm/keybindings/{{ item.key }}"
