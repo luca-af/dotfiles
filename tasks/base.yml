@@ -27,4 +27,5 @@
       - uv
       - ripgrep
       - fzf
+      - age
     state: present
