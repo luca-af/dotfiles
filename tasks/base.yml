@@ -26,4 +26,5 @@
       - pandoc
       - uv
       - ripgrep
+      - fzf
     state: present
