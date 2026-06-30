@@ -28,4 +28,6 @@
       - ripgrep
       - fzf
       - age
+      - gh
+      - glab
     state: present
