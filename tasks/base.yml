@@ -25,6 +25,7 @@
       - bat
       - pandoc
       - uv
+      - eza
       - ripgrep
       - fzf
       - age

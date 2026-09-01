@@ -21,8 +21,8 @@ PATH="$HOME/.local/bin:$HOME/bin:$HOME/.krew/bin:$PATH"
 export PATH
 
 # Customize Output Alias
-alias ls='ls --color=auto'
-alias ll='ls -l --color=auto'
+alias ls='eza'
+alias ll='ls -l'
 alias kc="kubectl"
 alias ncspot='flatpak run io.github.hrkfdn.ncspot'
 alias cat=bat
