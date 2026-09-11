@@ -2,21 +2,18 @@
 
 - name: "Install Ncspot"
   tags:
-    - flatpak
+    - never
     - ncspot
   community.general.flatpak:
     name:
       - io.github.hrkfdn.ncspot
-      - io.gitlab.librewolf-community
-      - net.cozic.joplin_desktop
-      - io.freetubeapp.FreeTube
     state: latest
     remote: flathub
 
 - name: Ncspot dir
   tags:
     - ncspot
-    - flatpak
+    - never
   ansible.builtin.file:
     path: "{{ ncspot_dir }}"
     state: directory
@@ -24,7 +21,7 @@
 - name: Ncspot conf
   tags:
     - ncspot
-    - flatpak
+    - never
   ansible.builtin.copy:
     dest: "{{ ncspot_dir }}/config.toml"
     src: "{{ playbook_dir }}/appconf/ncspot/config.toml"
@@ -34,7 +31,7 @@
 
 - name: "Install FreeTube"
   tags:
-    - flatpak
+    - never
     - FreeTube
   community.general.flatpak:
     name:
@@ -44,7 +41,7 @@
 
 - name: "Install Joplin"
   tags:
-    - flatpak
+    - never
     - joplin
   community.general.flatpak:
     name:
@@ -54,7 +51,7 @@
 
 - name: "Install Librewolf"
   tags:
-    - flatpak
+    - never
     - librewolf
   community.general.flatpak:
     name:
